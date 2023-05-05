@@ -1,0 +1,36 @@
+plugins {
+    id 'groovy'
+}
+
+version = "1.1-SNAPSHOT"
+description = "TAF"
+sourceCompatibility = '17'
+
+ext {
+    restAssuredVersion = '5.3.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.11'
+
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.3-groovy-4.0'
+
+    testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
+    testImplementation "io.rest-assured:json-path:$restAssuredVersion"
+    testImplementation "io.rest-assured:json-schema-validator:$restAssuredVersion"
+}
+
+test {
+    maxParallelForks = 2
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed", "STANDARD_OUT", "STANDARD_ERROR"
+        showStandardStreams = true
+    }
+    reports {
+    }
+}
