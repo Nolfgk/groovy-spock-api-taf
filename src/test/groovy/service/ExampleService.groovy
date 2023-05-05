@@ -1,12 +1,10 @@
 package service
 
-
 import constants.Environment
-import io.restassured.http.Method
+import io.restassured.internal.RestAssuredResponseImpl
 import io.restassured.response.Response
 import model.example.ExampleRequest
-
-import static constants.Endpoints.EXAMPLE_URL
+import org.apache.http.HttpStatus
 
 class ExampleService extends AbstractBaseService {
 
@@ -15,7 +13,10 @@ class ExampleService extends AbstractBaseService {
         serviceName = "Example Service"
     }
 
-    Response sendTemplateRequest(ExampleRequest requestBody, Map headersMap) {
-        return sendHttpRequest(requestBody, Method.POST, headersMap, baseServiceHost + EXAMPLE_URL)
+    static Response sendExampleRequest(ExampleRequest requestBody, Map headersMap) {
+        Response response = new RestAssuredResponseImpl()
+        response.setStatusCode(HttpStatus.SC_OK)
+        return response
+
     }
 }

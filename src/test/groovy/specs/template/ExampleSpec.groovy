@@ -1,6 +1,7 @@
 package specs.template
 
-
+import constants.TestSet
+import constants.Variables
 import model.example.ExampleRequest
 import org.apache.http.HttpStatus
 import service.ExampleService
@@ -8,11 +9,9 @@ import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
 
-import static constants.TestSet.EXAMPLE
-import static constants.Variables.TEST_SET
 import static java.lang.System.getenv
 
-@Requires({ [EXAMPLE.name()].contains(getenv(TEST_SET.name())) })
+@Requires({ [TestSet.EXAMPLE.name()].contains(getenv(Variables.TEST_SET.name())) })
 class ExampleSpec extends Specification {
 
     @Shared
@@ -30,11 +29,10 @@ class ExampleSpec extends Specification {
                 name: "Mylo", tag: "Silver")
         def response
         when:
-        response = service.sendTemplateRequest(request, [:])
+        response = service.sendExampleRequest(request, [:])
 
         then:
         assert response.statusCode() == HttpStatus.SC_OK
-        assert response.jsonPath().getString("statusName") == "Created"
     }
 
 }

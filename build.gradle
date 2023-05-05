@@ -5,6 +5,7 @@ plugins {
 version = "1.1-SNAPSHOT"
 description = "TAF"
 sourceCompatibility = '17'
+group = "test.example.spock"
 
 ext {
     restAssuredVersion = '5.3.0'
